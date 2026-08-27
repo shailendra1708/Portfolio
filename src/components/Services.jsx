@@ -53,7 +53,7 @@ export default function Services() {
         </p>
         <div className="mt-5 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <h2 className="instrument-serif max-w-2xl text-5xl leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:max-w-none">
-           A FEW THINGS I'VE BEEN <span className="italic text-[#4D6CFA]">INTO</span>
+           A few things I&apos;ve been <span className="italic text-[#4D6CFA]">into</span>
           </h2>
           <p className="max-w-sm text-sm leading-6 text-neutral-400 md:text-right">
             There&apos;s still so much I haven&apos;t seen.
