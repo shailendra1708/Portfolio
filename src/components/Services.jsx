@@ -1,46 +1,28 @@
 import photographyBackground from "../assets/services-background.png";
 import ugcBackground from "../assets/services-ugc.png";
 import storytellingBackground from "../assets/services-storytelling.png";
-import travelBackground from "../assets/services-travel.png";
-import directionBackground from "../assets/services-direction.png";
-import writingBackground from "../assets/services-writing.png";
 
 const services = [
   {
     number: "01",
-    title: "Photography",
+    title: "VIDEO EDITS",
     image: photographyBackground,
-    description: "Thoughtful portraits, lifestyle frames, and visuals that hold a moment for longer.",
+    description: "A collection of edits, experiments, and stories I've put together frame by frame.",
+    href: "#video-edits",
   },
   {
     number: "02",
-    title: "UGC Content",
+    title: "PROJECTS",
     image: ugcBackground,
-    description: "Natural, audience-first content that makes products feel lived-in and worth sharing.",
+    description: "Things I've built while learning, experimenting, and trying to understand how things work beneath the surface.",
+    href: "#projects",
   },
   {
     number: "03",
-    title: "Visual Storytelling",
+    title: "TRAVELLING",
     image: storytellingBackground,
-    description: "Short-form concepts and edits that turn everyday details into a compelling story.",
-  },
-  {
-    number: "04",
-    title: "Travel Content",
-    image: travelBackground,
-    description: "Candid travel visuals that capture a place, its pace, and the people within it.",
-  },
-  {
-    number: "05",
-    title: "Catchy carousels",
-    image: directionBackground,
-    description: "Clear visual ideas and mood-led direction for campaigns, shoots, and personal brands.",
-  },
-  {
-    number: "06",
-    title: "Poetry & Writing",
-    image: writingBackground,
-    description: "Words with feeling—from intimate reflections to captions that leave a small echo.",
+    description: "Places I've been, places I want to see, and experiences I'm collecting along the way.",
+    href: "#travelling",
   },
 ];
 
@@ -62,9 +44,10 @@ export default function Services() {
 
         <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
-            <article
+            <a
+              href={service.href}
               key={service.number}
-              className="group relative min-h-56 overflow-hidden border border-white/15 p-6 transition-all duration-300 ease-out hover:rotate-[1.25deg] hover:border-white hover:ring-2 hover:ring-white sm:p-7"
+              className="group relative min-h-56 cursor-pointer overflow-hidden border border-white/15 p-6 transition-all duration-300 ease-out hover:rotate-[1.25deg] hover:border-white hover:ring-2 hover:ring-white sm:p-7"
             >
               <img
                 src={service.image}
@@ -84,7 +67,7 @@ export default function Services() {
                   {service.description}
                 </p>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </div>
