@@ -55,7 +55,7 @@ export default function Services() {
           <h2 className="instrument-serif max-w-2xl text-5xl leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:max-w-none">
            A few things I&apos;ve been <span className="italic text-[#4D6CFA]">into</span>
           </h2>
-          <p className="max-w-sm text-sm leading-6 text-neutral-400 md:text-right">
+          <p className="max-w-sm text-sm leading-6 tracking-[0.01em] text-neutral-400 md:text-right">
             There&apos;s still so much I haven&apos;t seen.
           </p>
         </div>
