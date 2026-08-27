@@ -56,7 +56,7 @@ export default function Services() {
            A FEW THINGS I'VE BEEN <span className="italic text-[#4D6CFA]">INTO</span>
           </h2>
           <p className="max-w-sm text-sm leading-6 text-neutral-400 md:text-right">
-            THERE&apos;S STILL SO MUCH I HAVEN&apos;T SEEN.
+            There&apos;s still so much I haven&apos;t seen.
           </p>
         </div>
 
