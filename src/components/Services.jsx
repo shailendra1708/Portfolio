@@ -49,14 +49,14 @@ export default function Services() {
     <section className="bg-black px-6 py-20 text-white sm:py-24 lg:px-12 lg:py-28">
       <div className="mx-auto max-w-7xl">
         <p className="text-xs font-medium uppercase tracking-[0.3em] text-neutral-500">
-          What I provide
+          WHAT I'M UP TO
         </p>
         <div className="mt-5 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-          <h2 className="instrument-serif max-w-2xl text-5xl leading-[0.95] tracking-tight sm:text-6xl md:text-7xl">
-           How can I help <span className="italic text-[#4D6CFA]">you ?</span>
+          <h2 className="instrument-serif max-w-2xl text-5xl leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:max-w-none">
+           A FEW THINGS I'VE BEEN <span className="italic text-[#4D6CFA]">INTO</span>
           </h2>
           <p className="max-w-sm text-sm leading-6 text-neutral-400 md:text-right">
-            I shape ideas that people can connect with.
+            THERE&apos;S STILL SO MUCH I HAVEN&apos;T SEEN.
           </p>
         </div>
 
