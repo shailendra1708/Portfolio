@@ -1,9 +1,11 @@
 import { lazy, Suspense, useEffect, useState } from "react";
+import "./App.css";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Navbar from "./components/Navbar";
-import TalesPage from "./components/Tales";
 import GalleryPage from "./components/Gallery";
+import ProjectsPage from "./components/Projects";
+import VideoEdits from "./components/VideoEdits";
 import Feedback from "./components/Feedback";
 import Footer from "./components/Footer";
 
@@ -12,13 +14,13 @@ const Services = lazy(() => import("./components/Services"));
 function App() {
   const [page, setPage] = useState(() => {
     const hash = window.location.hash;
-    return hash === "#gallery" || hash === "#tales" ? hash.slice(1) : "home";
+    return ["#gallery", "#projects", "#video-edits"].includes(hash) ? hash.slice(1) : "home";
   });
 
   useEffect(() => {
     const updateView = () => {
       const hash = window.location.hash;
-      setPage(hash === "#gallery" || hash === "#tales" ? hash.slice(1) : "home");
+      setPage(["#gallery", "#projects", "#video-edits"].includes(hash) ? hash.slice(1) : "home");
     };
 
     window.addEventListener("hashchange", updateView);
@@ -34,13 +36,20 @@ function App() {
     document.querySelector(hash)?.scrollIntoView();
   }, [page]);
 
+  useEffect(() => {
+    if (page === "home") return;
+    window.scrollTo(0, 0);
+  }, [page]);
+
   return (
     <>
       <Navbar />
       {page === "gallery" ? (
         <GalleryPage />
-      ) : page === "tales" ? (
-        <TalesPage />
+      ) : page === "projects" ? (
+        <ProjectsPage />
+      ) : page === "video-edits" ? (
+        <VideoEdits />
       ) : (
         <>
           <Hero />

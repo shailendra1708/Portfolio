@@ -11,43 +11,44 @@ function PhoneIcon() {
 
 const storyPoints = [
   { text: "I LOVE CHAI AND THE STORIES THAT COME WITH IT.", position: "top-[23%]" },
-  { text: "I LOVE GHAZALS THAT MAKE YOU LISTEN TO THE SAME LINE TWICE.", position: "top-[32%]" },
-  { text: "I LOVE BOOKS THAT LEAVE ME THINKING AFTER I CLOSE THEM.", position: "top-[41%]" },
-  { text: "I LOVE BEING A BEGINNER AT SOMETHING I FIND INTERESTING.", position: "top-[50%]" },
-  { text: "I LOVE RASMALAI. 🍮", position: "top-[59%]" },
-  { text: "I LOVE MARVEL — DOCTOR STRANGE IS MY FAVOURITE.", position: "top-[68%]" },
-  { text: "I WANT TO TRAVEL THE WORLD, ONE PLACE AT A TIME.", position: "top-[77%]" },
-  { text: "I WANT TO TREK MERA PEAK — JUST TO TEST MYSELF.", position: "top-[86%]" },
+  { text: "I LOVE GHAZALS THAT MAKE YOU LISTEN TO THE SAME LINE TWICE.", position: "top-[33%]" },
+  { text: "I LOVE BOOKS THAT LEAVE ME THINKING AFTER I CLOSE THEM.", position: "top-[43%]" },
+  { text: "I LOVE BEING A BEGINNER AT SOMETHING I FIND INTERESTING.", position: "top-[53%]" },
+  { text: "I LOVE MARVEL — DOCTOR STRANGE IS MY FAVOURITE.", position: "top-[63%]" },
+  { text: "I WANT TO TRAVEL THE WORLD, ONE PLACE AT A TIME.", position: "top-[73%]" },
+  { text: "I WANT TO TREK MERA PEAK — JUST TO TEST MYSELF.", position: "top-[83%]" },
 ];
 
 export default function Hero() {
   const [skillsVisible, setSkillsVisible] = useState(false);
 
   return (
-    <section id="home" className="relative min-h-screen bg-black overflow-hidden">
-
-      <div className="mx-auto flex h-screen max-w-7xl flex-col items-center px-6 lg:flex-row lg:px-12">
-
+    <section id="home" className="relative overflow-hidden bg-black">
+      <style>{`
+        @media (max-height: 500px) and (max-width: 1023px) {
+          .hero-portrait-mobile-short {
+            bottom: -2.25rem !important;
+          }
+        }
+      `}</style>
+      <div className="mx-auto flex min-h-[100svh] w-full max-w-7xl flex-col items-center px-4 pb-16 pt-24 sm:px-6 lg:h-screen lg:flex-row lg:px-12 lg:pb-0 lg:pt-0">
         {/* LEFT */}
-        <div className="z-10 flex w-full flex-[0.8] -translate-y-5 flex-col justify-center pb-4 pt-24 text-center lg:w-auto lg:flex-1 lg:translate-y-0 lg:justify-center lg:pb-0 lg:pt-0 lg:text-left">
-
-          <h1 className="instrument-serif text-white font-normal tracking-wide
-                         text-5xl sm:text-5xl md:text-6xl lg:text-7xl">
-            <span>VERMA</span><span className="ml-5 italic text-[#4D6CFA]">SHAILENDRA</span>
+        <div className="z-10 flex w-full flex-[0.8] -translate-y-4 flex-col justify-center pb-4 text-center lg:w-auto lg:flex-1 lg:translate-y-0 lg:justify-start lg:pb-0 lg:text-left">
+          <h1 className="instrument-serif text-white font-normal tracking-wide text-4xl leading-none sm:text-5xl md:text-6xl lg:text-7xl">
+            <span className="block sm:inline">VERMA</span>
+            <span className="mt-1 block italic text-[#4D6CFA] sm:mt-0 sm:ml-5 sm:inline">SHAILENDRA</span>
           </h1>
 
-          <p className="mt-3 text-xs font-medium uppercase tracking-[0.28em] text-neutral-400 sm:text-sm text-left leading-tight">
+          <p className="mt-3 text-left text-[10px] font-medium uppercase leading-tight tracking-[0.18em] text-neutral-400 sm:text-xs md:text-sm md:tracking-[0.22em]">
             <span className="block">CURIOUS ABOUT TECHNOLOGY, PEOPLE &</span>
-            <span className="block"><span className="">HOW THINGS WORK </span><span className="text-neutral-400">| INDORE, INDIA</span></span>
+            <span className="block">
+              <span>HOW THINGS WORK</span>
+              <span className="text-neutral-400"> | INDORE, INDIA</span>
+            </span>
           </p>
 
-          {/* <p className="mt-5 max-w-xl text-base leading-7 text-neutral-300 sm:text-lg">
-            <span className="font-semibold text-white">Niche:</span> Photography, Travelling,
-            Storytelling, Poetry, Writing
-          </p> */}
-
           <div className="mt-3 flex flex-col items-center gap-3 lg:items-start">
-            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm lg:justify-start">
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs sm:text-sm lg:justify-start">
               <span className="font-medium uppercase tracking-[0.18em] text-neutral-500">Follow me on</span>
               <a href="https://www.instagram.com/its_shailendra_17/" target="_blank" rel="noreferrer" className="font-medium text-white transition hover:text-[#4D6CFA]">
                 Instagram
@@ -58,11 +59,11 @@ export default function Hero() {
               </a>
             </div>
 
-            <div className="mt-2 flex items-center gap-3">
-              <a href="mailto:shailendraverma1708@gmail.com?subject=Portfolio%20enquiry" className="inline-flex items-center gap-2 rounded-full border border-white/25 px-5 py-3 text-sm font-semibold text-white transition hover:border-[#4D6CFA] hover:bg-[#4D6CFA]">
+            <div className="mt-2 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+              <a href="mailto:shailendraverma1708@gmail.com?subject=Portfolio%20enquiry" className="inline-flex items-center gap-2 rounded-full border border-white/25 px-4 py-2.5 text-xs font-semibold text-white transition hover:border-[#4D6CFA] hover:bg-[#4D6CFA] sm:px-5 sm:py-3 sm:text-sm">
                 <MailIcon /> Email me
               </a>
-              <a href="tel:+919406705427" className="inline-flex items-center gap-2 rounded-full border border-white/25 px-5 py-3 text-sm font-semibold text-white transition hover:border-[#4D6CFA] hover:bg-[#4D6CFA]">
+              <a href="tel:+919406705427" className="inline-flex items-center gap-2 rounded-full border border-white/25 px-4 py-2.5 text-xs font-semibold text-white transition hover:border-[#4D6CFA] hover:bg-[#4D6CFA] sm:px-5 sm:py-3 sm:text-sm">
                 <PhoneIcon /> Call me
               </a>
               <button
@@ -77,26 +78,21 @@ export default function Hero() {
               </button>
             </div>
           </div>
-
         </div>
 
         {/* RIGHT */}
-        <div className="absolute inset-x-0 bottom-0 flex w-full items-end justify-center lg:inset-x-auto lg:left-1/2 lg:w-auto lg:-translate-x-1/2">
-
-          <div className="w-[min(190vw,900px)] max-w-none sm:w-[min(170vw,820px)] lg:w-[520px]">
-
+        <div className="hero-portrait-mobile-short absolute inset-x-0 bottom-[-1rem] flex w-full items-end justify-center sm:bottom-0 lg:inset-x-auto lg:left-[50%] lg:w-auto lg:translate-x-0 xl:left-[52%]">
+          <div className="w-[min(190vw,900px)] max-w-none sm:w-[min(170vw,820px)] lg:w-[560px] xl:w-[590px]">
             <video
               autoPlay
               loop
               muted
               playsInline
-              className={`h-auto w-full pointer-events-none select-none transition-[filter] duration-700 ${skillsVisible ? "grayscale" : "grayscale-0"}`}
+              className={`h-auto w-full scale-[0.85] -translate-x-[18%] translate-y-[8%] object-contain object-center pointer-events-none select-none transition-[filter,transform] duration-700 sm:scale-[0.9] sm:-translate-x-[24%] md:-translate-x-[26%] lg:scale-[0.84] lg:-translate-x-[40%] lg:translate-y-[8%] xl:scale-[0.86] xl:-translate-x-[42%] xl:translate-y-[8%] ${skillsVisible ? "grayscale" : "grayscale-0"}`}
             >
               <source src={heroVideo} type="video/mp4" />
             </video>
-
           </div>
-
         </div>
 
         {/* Desktop-only notes that use the open space beside the portrait. */}
@@ -113,9 +109,17 @@ export default function Hero() {
             </div>
           ))}
         </aside>
-
       </div>
 
+      <a
+        href="#about"
+        aria-label="Scroll to About section"
+        className="absolute bottom-5 left-1/2 z-30 inline-flex -translate-x-1/2 items-center justify-center rounded-full border border-white/20 bg-white/5 p-3 text-white backdrop-blur-md transition hover:border-[#4D6CFA] hover:bg-[#4D6CFA]/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4D6CFA] animate-bounce"
+      >
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4">
+          <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </a>
     </section>
   );
 }

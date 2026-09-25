@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -11,21 +11,32 @@
   --accent: #4d6cfa;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: "Manrope", "Inter", sans-serif;
+  overflow-x: hidden;
+  background: #050505;
+  color: #f5f5f5;
+  font-family: Inter, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+img,
+video {
+  max-width: 100%;
+}
+
 .instrument-serif {
-  font-family: "Instrument Serif", Georgia, serif;
+  font-family: "Instrument Serif", serif;
   letter-spacing: -0.04em;
 }
 

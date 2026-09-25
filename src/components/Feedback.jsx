@@ -1,5 +1,5 @@
 import { useState } from "react";
-import feedbackBackground from "../assets/services-background.png";
+import feedbackBackground from "../assets/contact-background.png";
 
 export default function Feedback() {
   const [type, setType] = useState("Query");
@@ -39,8 +39,8 @@ export default function Feedback() {
     <section id="contact" className="bg-[#111111] px-6 py-20 text-white sm:py-24 lg:px-12 lg:py-28">
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] lg:items-center lg:gap-24">
         <form onSubmit={handleSubmit} className="relative isolate order-2 overflow-hidden rounded-2xl bg-black p-6 text-neutral-300 shadow-2xl shadow-black/40 sm:p-8 lg:order-1">
-          <img src={feedbackBackground} alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 h-full w-full scale-110 object-cover object-right-bottom opacity-20 animate-[form-background-drift_18s_ease-in-out_infinite_alternate]" />
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-[1] bg-black/65" />
+          <img src={feedbackBackground} alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 h-full w-full scale-110 object-cover object-right-bottom opacity-40 animate-[form-background-drift_18s_ease-in-out_infinite_alternate]" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-[1] bg-black/45" />
           <div className="relative z-10 inline-flex rounded-full border border-white/15 p-1" role="group" aria-label="Feedback type">
             {["Query", "Review"].map((option) => (
               <button
