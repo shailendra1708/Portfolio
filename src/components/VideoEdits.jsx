@@ -108,7 +108,7 @@ function VideoCard({ video, activeVideoRef }) {
             src={video.src}
             poster={video.poster}
             controls
-            preload="metadata"
+            preload="none"
             playsInline
             onPlay={handlePlay}
             onPause={handlePause}

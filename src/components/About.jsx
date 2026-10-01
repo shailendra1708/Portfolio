@@ -1,6 +1,34 @@
+import { useEffect, useRef, useState } from "react";
 import meVideo from "../assets/Me.mp4";
+import mePoster from "../assets/posters/Me.png";
 
 export default function About() {
+  const videoContainerRef = useRef(null);
+  const [isNearViewport, setIsNearViewport] = useState(false);
+
+  useEffect(() => {
+    const container = videoContainerRef.current;
+    if (!container) return;
+
+    if (!("IntersectionObserver" in window)) {
+      setIsNearViewport(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsNearViewport(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" },
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
       id="about"
@@ -36,14 +64,26 @@ export default function About() {
           </p>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[20rem] sm:max-w-[22rem] lg:max-w-[280px] lg:translate-y-8">
+        <div ref={videoContainerRef} className="relative mx-auto w-full max-w-[20rem] sm:max-w-[22rem] lg:max-w-[280px] lg:translate-y-8">
           <div className="overflow-hidden rounded-2xl shadow-2xl">
-            <video
-              src={meVideo}
-              controls
-              playsInline
-              className="aspect-[9/16] w-full object-cover"
-            />
+            {isNearViewport ? (
+              <video
+                src={meVideo}
+                poster={mePoster}
+                controls
+                preload="none"
+                playsInline
+                className="aspect-[9/16] w-full object-cover"
+              />
+            ) : (
+              <img
+                src={mePoster}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                className="aspect-[9/16] w-full object-cover"
+              />
+            )}
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import heroVideo from "../assets/hero.mp4";
+import heroPoster from "../assets/hero-poster.jpg";
 
 function MailIcon() {
   return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>;
@@ -88,6 +89,8 @@ export default function Hero() {
               loop
               muted
               playsInline
+              preload="metadata"
+              poster={heroPoster}
               className={`h-auto w-full scale-[0.85] translate-x-0 translate-y-[8%] object-contain object-center pointer-events-none select-none transition-[filter,transform] duration-700 sm:scale-[0.9] sm:translate-x-0 md:translate-x-0 lg:scale-[0.84] lg:-translate-x-[40%] lg:translate-y-[8%] xl:scale-[0.86] xl:-translate-x-[42%] xl:translate-y-[8%] ${skillsVisible ? "grayscale" : "grayscale-0"}`}
             >
               <source src={heroVideo} type="video/mp4" />
