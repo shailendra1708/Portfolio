@@ -88,7 +88,7 @@ export default function Hero() {
               loop
               muted
               playsInline
-              className={`h-auto w-full scale-[0.85] -translate-x-[18%] translate-y-[8%] object-contain object-center pointer-events-none select-none transition-[filter,transform] duration-700 sm:scale-[0.9] sm:-translate-x-[24%] md:-translate-x-[26%] lg:scale-[0.84] lg:-translate-x-[40%] lg:translate-y-[8%] xl:scale-[0.86] xl:-translate-x-[42%] xl:translate-y-[8%] ${skillsVisible ? "grayscale" : "grayscale-0"}`}
+              className={`h-auto w-full scale-[0.85] translate-x-0 translate-y-[8%] object-contain object-center pointer-events-none select-none transition-[filter,transform] duration-700 sm:scale-[0.9] sm:translate-x-0 md:translate-x-0 lg:scale-[0.84] lg:-translate-x-[40%] lg:translate-y-[8%] xl:scale-[0.86] xl:-translate-x-[42%] xl:translate-y-[8%] ${skillsVisible ? "grayscale" : "grayscale-0"}`}
             >
               <source src={heroVideo} type="video/mp4" />
             </video>
