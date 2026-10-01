@@ -31,9 +31,9 @@ const videos = Object.entries(videoModules)
   .sort(([firstPath], [secondPath]) =>
     firstPath.localeCompare(secondPath, undefined, { numeric: true }),
   )
-  .map(([path, src], index) => {
+  .map(([path, src], id) => {
     const name = path.split("/").pop().replace(/\.mp4$/i, "");
-    return { src, poster: postersByName[name], id: index };
+    return { src, poster: postersByName[name], id };
   });
 
 export default function VideoEdits() {
@@ -127,6 +127,7 @@ export default function VideoEdits() {
                     src={video.src}
                     poster={video.poster}
                     className="h-full w-full object-contain"
+                    controls
                     preload="metadata"
                     playsInline
                     ref={(element) => {
@@ -153,7 +154,7 @@ export default function VideoEdits() {
                     className="h-full w-full object-contain"
                   />
                 )}
-                <div className="absolute inset-0 bg-black/15 transition duration-300 group-hover:bg-black/20" />
+                <div className="pointer-events-none absolute inset-0 bg-black/15 transition duration-300 group-hover:bg-black/20" />
                 {playingVideoId !== video.id && (
                   <button
                     type="button"
@@ -180,9 +181,9 @@ export default function VideoEdits() {
                       cardVideo.volume = 1;
                       void cardVideo.play();
                     }}
-                    className="absolute inset-0 grid place-items-center"
+                    className="pointer-events-none absolute inset-0 grid place-items-center"
                   >
-                    <span className="grid h-14 w-14 place-items-center rounded-full border border-white/50 bg-white/10 text-lg text-white backdrop-blur-sm transition duration-300 group-hover:border-white group-hover:bg-white/20 group-hover:scale-110">
+                    <span className="pointer-events-auto grid h-14 w-14 place-items-center rounded-full border border-white/50 bg-white/10 text-lg text-white backdrop-blur-sm transition duration-300 group-hover:border-white group-hover:bg-white/20 group-hover:scale-110">
                       ▶
                     </span>
                   </button>
