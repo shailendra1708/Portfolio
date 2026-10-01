@@ -28,67 +28,127 @@ const postersByName = Object.fromEntries(
 );
 
 const videos = Object.entries(videoModules)
-  .sort(([firstPath], [secondPath]) =>
-    firstPath.localeCompare(secondPath, undefined, { numeric: true }),
-  )
-  .map(([path, src], id) => {
+  .map(([path, src]) => {
     const name = path.split("/").pop().replace(/\.mp4$/i, "");
-    return { src, poster: postersByName[name], id };
-  });
+    const posterName = name.replace(/-h264$/i, "");
 
-export default function VideoEdits() {
-  const [playingVideoId, setPlayingVideoId] = useState(null);
-  const [mountedVideoIds, setMountedVideoIds] = useState(() => (
-    typeof IntersectionObserver === "undefined"
-      ? new Set(videos.map((video) => video.id))
-      : new Set()
-  ));
-  const [pendingPlayId, setPendingPlayId] = useState(null);
-  const cardRefs = useRef([]);
-  const videoRefs = useRef([]);
+    return {
+      name,
+      src,
+      poster: postersByName[posterName],
+    };
+  })
+  .sort((first, second) =>
+    first.name.localeCompare(second.name, undefined, {
+      numeric: true,
+      sensitivity: "base",
+    }),
+  );
+
+function VideoCard({ video, activeVideoRef }) {
+  const cardRef = useRef(null);
+  const videoRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [pendingPlay, setPendingPlay] = useState(false);
 
   useEffect(() => {
-    if (typeof IntersectionObserver === "undefined") {
-      return undefined;
+    const card = cardRef.current;
+    if (!card) return;
+
+    if (!("IntersectionObserver" in window)) {
+      setIsVisible(true);
+      return;
     }
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-
-          const videoId = Number(entry.target.dataset.videoId);
-          setMountedVideoIds((currentIds) => {
-            if (currentIds.has(videoId)) return currentIds;
-            const nextIds = new Set(currentIds);
-            nextIds.add(videoId);
-            return nextIds;
-          });
-          observer.unobserve(entry.target);
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
       },
-      { rootMargin: "200px 0px" },
+      { rootMargin: "200px" },
     );
 
-    cardRefs.current.forEach((card) => {
-      if (card) observer.observe(card);
-    });
-
+    observer.observe(card);
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    if (pendingPlayId === null || !mountedVideoIds.has(pendingPlayId)) return;
+    if (!isVisible || !pendingPlay || !videoRef.current) return;
+    void videoRef.current.play();
+    setPendingPlay(false);
+  }, [isVisible, pendingPlay]);
 
-    const video = videoRefs.current[pendingPlayId];
-    if (!video) return;
+  const handlePlay = () => {
+    if (activeVideoRef.current && activeVideoRef.current !== videoRef.current) {
+      activeVideoRef.current.pause();
+    }
+    activeVideoRef.current = videoRef.current;
+    setIsPlaying(true);
+  };
 
-    video.currentTime = 0;
-    video.muted = false;
-    video.volume = 1;
-    void video.play();
-    setPendingPlayId(null);
-  }, [mountedVideoIds, pendingPlayId]);
+  const handlePause = () => {
+    if (activeVideoRef.current === videoRef.current) {
+      activeVideoRef.current = null;
+    }
+    setIsPlaying(false);
+  };
+
+  return (
+    <article className="group flex justify-center">
+      <div
+        ref={cardRef}
+        className="relative aspect-[9/16] w-[85%] overflow-hidden bg-neutral-900 border border-white/15 transition-all duration-300 ease-out hover:border-white hover:ring-2 hover:ring-white"
+      >
+        {isVisible ? (
+          <video
+            ref={videoRef}
+            src={video.src}
+            poster={video.poster}
+            controls
+            preload="metadata"
+            playsInline
+            onPlay={handlePlay}
+            onPause={handlePause}
+            className="h-full w-full object-contain"
+          />
+        ) : (
+          video.poster && (
+            <img
+              src={video.poster}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-contain"
+            />
+          )
+        )}
+        <div className="pointer-events-none absolute inset-0 bg-black/15 transition duration-300 group-hover:bg-black/20" />
+        {!isPlaying && (
+          <button
+            type="button"
+            aria-label={`Play ${video.name}`}
+            onClick={() => {
+              setPendingPlay(true);
+              setIsVisible(true);
+            }}
+            className="pointer-events-none absolute inset-0 grid place-items-center"
+          >
+            <span className="pointer-events-auto grid h-14 w-14 place-items-center rounded-full border border-white/50 bg-white/10 text-lg text-white backdrop-blur-sm transition duration-300 group-hover:border-white group-hover:bg-white/20 group-hover:scale-110">
+              ▶
+            </span>
+          </button>
+        )}
+      </div>
+    </article>
+  );
+}
+
+export default function VideoEdits() {
+  const activeVideoRef = useRef(null);
 
   return (
     <main className="min-h-screen bg-black px-6 pb-24 pt-32 lg:px-12 lg:pb-32 lg:pt-40">
@@ -113,83 +173,11 @@ export default function VideoEdits() {
 
         <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
           {videos.map((video) => (
-            <article
-              key={video.id}
-              ref={(element) => {
-                cardRefs.current[video.id] = element;
-              }}
-              data-video-id={video.id}
-              className="group flex justify-center"
-            >
-              <div className="relative aspect-[9/16] w-[85%] overflow-hidden bg-neutral-900 border border-white/15 transition-all duration-300 ease-out hover:border-white hover:ring-2 hover:ring-white">
-                {mountedVideoIds.has(video.id) ? (
-                  <video
-                    src={video.src}
-                    poster={video.poster}
-                    className="h-full w-full object-contain"
-                    controls
-                    preload="metadata"
-                    playsInline
-                    ref={(element) => {
-                      videoRefs.current[video.id] = element;
-                    }}
-                    onPlay={(event) => {
-                      videoRefs.current.forEach((otherVideo) => {
-                        if (otherVideo && otherVideo !== event.currentTarget) {
-                          otherVideo.pause();
-                        }
-                      });
-                      setPlayingVideoId(video.id);
-                    }}
-                    onPause={() => setPlayingVideoId(null)}
-                    onEnded={() => setPlayingVideoId(null)}
-                  />
-                ) : (
-                  <img
-                    src={video.poster}
-                    alt=""
-                    aria-hidden="true"
-                    loading="lazy"
-                    decoding="async"
-                    className="h-full w-full object-contain"
-                  />
-                )}
-                <div className="pointer-events-none absolute inset-0 bg-black/15 transition duration-300 group-hover:bg-black/20" />
-                {playingVideoId !== video.id && (
-                  <button
-                    type="button"
-                    aria-label="Play video"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      const cardVideo = event.currentTarget.closest("article").querySelector("video");
-                      if (!cardVideo) {
-                        setPendingPlayId(video.id);
-                        setMountedVideoIds((currentIds) => {
-                          const nextIds = new Set(currentIds);
-                          nextIds.add(video.id);
-                          return nextIds;
-                        });
-                        return;
-                      }
-                      videoRefs.current.forEach((otherVideo) => {
-                        if (otherVideo && otherVideo !== cardVideo) {
-                          otherVideo.pause();
-                        }
-                      });
-                      cardVideo.currentTime = 0;
-                      cardVideo.muted = false;
-                      cardVideo.volume = 1;
-                      void cardVideo.play();
-                    }}
-                    className="pointer-events-none absolute inset-0 grid place-items-center"
-                  >
-                    <span className="pointer-events-auto grid h-14 w-14 place-items-center rounded-full border border-white/50 bg-white/10 text-lg text-white backdrop-blur-sm transition duration-300 group-hover:border-white group-hover:bg-white/20 group-hover:scale-110">
-                      ▶
-                    </span>
-                  </button>
-                )}
-              </div>
-            </article>
+            <VideoCard
+              key={video.name}
+              video={video}
+              activeVideoRef={activeVideoRef}
+            />
           ))}
         </div>
       </div>
